@@ -1,3 +1,5 @@
+import { useHistory } from "react-router-dom";
+
 import { authConstants } from "../constants";
 import { authService } from "../services";
 import { alertActions } from "./";
@@ -6,6 +8,8 @@ export const authActions = {
   login,
   logout
 };
+
+//const history = useHistory();
 
 function login(username, password, from) {
   return dispatch => {

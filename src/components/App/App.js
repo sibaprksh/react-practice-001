@@ -33,7 +33,7 @@ function App() {
               return <Redirect to={{ pathname: "/" }} />;
             }
             // not logged in so return component
-            return <Component {...props} />;
+            return <Login {...props} />;
           }}
         />
         <Redirect from="*" to="/" />

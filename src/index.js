@@ -3,10 +3,14 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import { createStore } from "redux";
+// setup fake backend
+import { configureFakeBackend } from "./services";
+configureFakeBackend();
 
+import { createStore, applyMiddleware } from "redux";
+import thunkMiddleware from "redux-thunk";
 import rootReducer from "./reducers";
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 import "./style.css";
 
