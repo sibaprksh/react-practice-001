@@ -6,7 +6,7 @@ export default function Home() {
     <div>
       <h1> Home !! </h1>
       <p>
-        <Link to="/login">Login</Link>
+        <a onclick={() => localStorage.removeItem("user")}>Logout</a>
       </p>
     </div>
   );
