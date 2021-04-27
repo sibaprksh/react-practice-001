@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { alertActions } from "../../actions";
+import { authActions } from "../../actions";
 //import { history } from "../../history";
 
 export default function Login() {
@@ -15,7 +15,7 @@ export default function Login() {
     password: ""
   });
 
-  const loading = false;
+  const loading = useSelector(state => state.auth.loading);
 
   const [isSubmitted, setSubmitted] = useState(false);
 
@@ -28,17 +28,23 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    //setSubmitted(true);
+    setSubmitted(true);
 
-    debugger;
+    //debugger;
 
-    localStorage.setItem("user", JSON.stringify(inputs));
+    //localStorage.setItem("user", JSON.stringify(inputs));
 
     // get return url from location state or default to home page
-    const { from } = location.state || { from: { pathname: "/" } };
-    history.push(from);
+    //const { from } = location.state || { from: { pathname: "/" } };
+    //history.push(from);
 
     //dispatch(alertActions.success("Testing"));
+
+    if (username && password) {
+      // get return url from location state or default to home page
+      const { from } = location.state || { from: { pathname: "/" } };
+      dispatch(authActions.login(username, password, from));
+    }
   }
 
   const { username, password } = inputs;
