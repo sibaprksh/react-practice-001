@@ -1,5 +1,5 @@
 const fakeUser = {
-  id: 101,
+  id: 1,
   username: "admin@example.com",
   firstName: "Siba",
   lastName: "Prakash",
@@ -23,7 +23,7 @@ export function configureFakeBackend() {
         switch (true) {
           case url.endsWith("/login") && method === "POST":
             return authenticate();
-          case url.endsWith("/users/register") && method === "POST":
+          case url.endsWith("/register") && method === "POST":
             return register();
           case url.endsWith("/users") && method === "GET":
             return getUsers();

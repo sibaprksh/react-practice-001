@@ -3,10 +3,15 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { _set } from "../../utils";
+import { authActions } from "../../actions";
 
 export default function Register() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
+
   const [inputs, setInputs] = useState({
-    email: "",
+    username: "",
     password: "",
     name: {
       first: "",
@@ -16,7 +21,6 @@ export default function Register() {
 
   const [isSubmitted, setSubmitted] = useState(false);
   const loading = useSelector(state => state.loading);
-  const dispatch = useDispatch();
 
   function handleChange(e) {
     const {
@@ -31,19 +35,21 @@ export default function Register() {
     setSubmitted(true);
 
     if (
-      inputs.email &&
+      inputs.username &&
       inputs.name.first &&
       inputs.name.last &&
       inputs.password
     ) {
-      console.log(inputs);
+      // get return url from location state or default to home page
+      const { from } = location.state || { from: { pathname: "/" } };
+      dispatch(authActions.register(inputs, from, history));
     }
   }
 
-  const { name, email, password } = inputs;
+  const { name, username, password } = inputs;
 
   return (
-    <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3 mt-5">
+    <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3 pt-5">
       <div className="card">
         <div className="card-header">
           <h3> Sign Up !! </h3>
@@ -94,14 +100,15 @@ export default function Register() {
                 type="email"
                 className="form-control"
                 placeholder="Enter email"
-                name="email"
-                value={email}
+                name="username"
+                value={username}
                 onChange={handleChange}
                 className={
-                  "form-control" + (isSubmitted && !email ? " is-invalid" : "")
+                  "form-control" +
+                  (isSubmitted && !username ? " is-invalid" : "")
                 }
               />
-              {isSubmitted && !email && (
+              {isSubmitted && !username && (
                 <div className="invalid-feedback">Email is required</div>
               )}
             </div>

@@ -3,7 +3,6 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { authActions } from "../../actions";
-//import { history } from "../../history";
 
 import "./Login.css";
 
@@ -37,12 +36,12 @@ export default function Login() {
     if (username && password) {
       // get return url from location state or default to home page
       const { from } = location.state || { from: { pathname: "/" } };
-      dispatch(authActions.login(username, password, from, history));
+      dispatch(authActions.login(inputs, from, history));
     }
   }
 
   return (
-    <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3 mt-5">
+    <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3 pt-5">
       <div className="card">
         <div className="card-header">
           <h3> Login !! </h3>

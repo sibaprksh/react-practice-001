@@ -15,13 +15,34 @@ export default function App() {
   const alert = useSelector(state => state.alert);
 
   useEffect(() => {
-    dispatch(alertActions.clear());
+    setTimeout(clearAlert, 2000);
   }, [location]);
+
+  //alert.message = "test";
+  //alert.type = "alert-success";
+
+  function clearAlert() {
+    dispatch(alertActions.clear());
+  }
 
   return (
     <>
       {alert.message && (
-        <div className={`alert ${alert.type}`}>{alert.message}</div>
+        <div className="fixed-top">
+          <div style={{ padding: "15px" }}>
+            <div className={`alert ${alert.type}`} style={{ margin: "0 auto" }}>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="alert"
+                onClick={clearAlert}
+              >
+                &times;
+              </button>
+              {alert.message}
+            </div>
+          </div>
+        </div>
       )}
       <Switch>
         <PrivateRoute exact path="/" component={Home} />

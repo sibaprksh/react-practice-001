@@ -4,10 +4,11 @@ const { host } = appConstants;
 
 export const authService = {
   login,
-  logout
+  logout,
+  register
 };
 
-function login(username, password) {
+async function login(username, password) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -27,6 +28,16 @@ function login(username, password) {
 function logout() {
   // remove user from local storage to log user out
   localStorage.removeItem("user");
+}
+
+async function register(inputs) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(inputs)
+  };
+
+  return fetch(`/register`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
