@@ -3,9 +3,12 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 
 export default function Register() {
   return (
-    <div className="jumbotron">
-      <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3">
-        <h3>Sign Up !!</h3>
+    <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3 mt-5">
+    <div className="card">
+      <div className="card-header">
+        <h3> Sign Up !! </h3>
+      </div>
+      <div className="card-body">
         <form>
           <div className="form-group">
             <label>First name</label>
@@ -47,10 +50,11 @@ export default function Register() {
             Sign Up
           </button>
           <p className="forgot-password text-right">
-            Already registered <Link to="/login">Sign in?</Link>
+            <Link to="/login">Sign in</Link>
           </p>
         </form>
       </div>
+    </div>
     </div>
   );
 }

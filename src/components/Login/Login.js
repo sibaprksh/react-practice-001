@@ -41,52 +41,59 @@ export default function Login() {
 
   const { username, password } = inputs;
   return (
-    <div className="jumbotron">
-      <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3">
-        <h1> Login !! </h1>
-        <form name="form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Username</label>
-            <input
-              type="text"
-              name="username"
-              value={username}
-              onChange={handleChange}
-              className={
-                "form-control" + (isSubmitted && !username ? " is-invalid" : "")
-              }
-            />
-            {isSubmitted && !username && (
-              <div className="invalid-feedback">Username is required</div>
-            )}
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-              className={
-                "form-control" + (isSubmitted && !password ? " is-invalid" : "")
-              }
-            />
-            {isSubmitted && !password && (
-              <div className="invalid-feedback">Password is required</div>
-            )}
-          </div>
-          <div className="form-group">
-            <button className="btn btn-primary">
-              {loading && (
-                <span className="spinner-border spinner-border-sm mr-1" />
+    <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3 mt-5">
+      <div className="card">
+        <div className="card-header">
+          <h3> Login !! </h3>
+        </div>
+        <div className="card-body">
+          <form name="form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Username</label>
+              <input
+                type="text"
+                name="username"
+                value={username}
+                onChange={handleChange}
+                className={
+                  "form-control" +
+                  (isSubmitted && !username ? " is-invalid" : "")
+                }
+              />
+              {isSubmitted && !username && (
+                <div className="invalid-feedback">Username is required</div>
               )}
-              Login
-            </button>
-            <Link to="/register" className="btn btn-link">
-              Register
-            </Link>
-          </div>
-        </form>
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={handleChange}
+                className={
+                  "form-control" +
+                  (isSubmitted && !password ? " is-invalid" : "")
+                }
+              />
+              {isSubmitted && !password && (
+                <div className="invalid-feedback">Password is required</div>
+              )}
+            </div>
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary btn-block">
+                {loading && (
+                  <span className="spinner-border spinner-border-sm mr-1" />
+                )}
+                Login
+              </button>
+
+              <p className="text-right">
+                <Link to="/register">New Register</Link>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
