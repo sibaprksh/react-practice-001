@@ -8,7 +8,7 @@ import { alertActions } from "../../actions";
 // components
 import { Home, Login } from "../index";
 
-function App() {
+export default function App() {
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -41,8 +41,6 @@ function App() {
     </>
   );
 }
-
-export default App;
 
 function PrivateRoute({ component: Component, roles, ...rest }) {
   return (

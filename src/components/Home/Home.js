@@ -8,7 +8,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const history = useHistory();
   return (
-    <div className="jumbotron">
+    <div>
       <h1> Home !! </h1>
       <p>
         <a onClick={() => dispatch(authActions.logout(history))}>Logout</a>

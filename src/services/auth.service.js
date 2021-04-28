@@ -1,3 +1,7 @@
+import { appConstants } from "../constants";
+
+const { host } = appConstants;
+
 export const authService = {
   login,
   logout
@@ -10,7 +14,7 @@ function login(username, password) {
     body: JSON.stringify({ username, password })
   };
 
-  return fetch(`/login`, requestOptions)
+  return fetch(`${host}/login`, requestOptions)
     .then(handleResponse)
     .then(user => {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
