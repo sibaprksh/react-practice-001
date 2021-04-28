@@ -17,6 +17,8 @@ export default function Login() {
     password: ""
   });
 
+  const { username, password } = inputs;
+
   const loading = useSelector(state => state.auth.loading);
 
   const [isSubmitted, setSubmitted] = useState(false);
@@ -39,7 +41,6 @@ export default function Login() {
     }
   }
 
-  const { username, password } = inputs;
   return (
     <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3 mt-5">
       <div className="card">
@@ -49,7 +50,7 @@ export default function Login() {
         <div className="card-body">
           <form name="form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>Username</label>
+              <label>Email</label>
               <input
                 type="text"
                 name="username"
