@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../actions";
 //import { history } from "../../history";
 
+import "./Login.css";
+
 export default function Login() {
   const dispatch = useDispatch();
   const location = useLocation();
