@@ -6,7 +6,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { alertActions } from "../../actions";
 
 // components
-import { Home, Login } from "../index";
+import { Home, Login, Register } from "../index";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -25,20 +25,27 @@ export default function App() {
       )}
       <Switch>
         <PrivateRoute exact path="/" component={Home} />
-        <Route
-          path="/login"
-          render={props => {
-            if (localStorage.getItem("user")) {
-              // logged in so redirect to home
-              return <Redirect to={{ pathname: "/" }} />;
-            }
-            // not logged in so return component
-            return <Login {...props} />;
-          }}
-        />
+        <HomeRout path="/login" component={Login} />
+        <HomeRout path="/register" component={Register} />
         <Redirect from="*" to="/" />
       </Switch>
     </>
+  );
+}
+
+function HomeRout({ component: Component, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        if (localStorage.getItem("user")) {
+          // logged in so redirect to home
+          return <Redirect to={{ pathname: "/" }} />;
+        }
+        // not logged in so return component
+        return <Component {...props} />;
+      }}
+    />
   );
 }
 
