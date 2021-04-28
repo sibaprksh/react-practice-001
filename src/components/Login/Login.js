@@ -30,20 +30,10 @@ export default function Login() {
     e.preventDefault();
     setSubmitted(true);
 
-    //debugger;
-
-    //localStorage.setItem("user", JSON.stringify(inputs));
-
-    // get return url from location state or default to home page
-    //const { from } = location.state || { from: { pathname: "/" } };
-    //history.push(from);
-
-    //dispatch(alertActions.success("Testing"));
-
     if (username && password) {
       // get return url from location state or default to home page
       const { from } = location.state || { from: { pathname: "/" } };
-      dispatch(authActions.login(username, password, from));
+      dispatch(authActions.login(username, password, from, history));
     }
   }
 
@@ -90,8 +80,8 @@ export default function Login() {
               )}
               Login
             </button>
-            <Link to="/" className="btn btn-link">
-              Home
+            <Link to="/register" className="btn btn-link">
+              Register
             </Link>
           </div>
         </form>

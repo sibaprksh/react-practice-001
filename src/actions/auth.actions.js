@@ -11,14 +11,14 @@ export const authActions = {
 
 //const history = useHistory();
 
-function login(username, password, from) {
+function login(username, password, from, history) {
   return dispatch => {
     dispatch(request({ username }));
 
     authService.login(username, password).then(
       user => {
         dispatch(success(user));
-        //history.push(from);
+        history.push(from);
       },
       error => {
         dispatch(failure(error.toString()));
@@ -38,7 +38,10 @@ function login(username, password, from) {
   }
 }
 
-function logout() {
-  userService.logout();
-  return { type: authConstants.LOGOUT };
+function logout(history) {
+  return dispatch => {
+    authService.logout();
+    dispatch({ type: authConstants.LOGOUT });
+    history.push("/");
+  };
 }
