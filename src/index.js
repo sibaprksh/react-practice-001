@@ -24,3 +24,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
+// Login flow: https://jasonwatmore.com/post/2020/03/02/react-hooks-redux-user-registration-and-login-tutorial-example

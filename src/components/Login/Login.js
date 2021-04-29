@@ -18,7 +18,7 @@ export default function Login() {
 
   const { username, password } = inputs;
 
-  const loading = useSelector(state => state.auth.loading);
+  const loading = useSelector(state => state.auth.loggingIn);
 
   const [isSubmitted, setSubmitted] = useState(false);
 

@@ -8,6 +8,8 @@ import { alertActions } from "../../actions";
 // components
 import { Home, Login, Register } from "../index";
 
+import "./App.css";
+
 export default function App() {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -15,11 +17,11 @@ export default function App() {
   const alert = useSelector(state => state.alert);
 
   useEffect(() => {
-    setTimeout(clearAlert, 2000);
+    setTimeout(clearAlert, 1000);
   }, [location]);
 
-  //alert.message = "test";
-  //alert.type = "alert-success";
+  // alert.message = "test";
+  // alert.type = "alert-success";
 
   function clearAlert() {
     dispatch(alertActions.clear());
@@ -28,7 +30,7 @@ export default function App() {
   return (
     <>
       {alert.message && (
-        <div className="fixed-top">
+        <div id="alert">
           <div style={{ padding: "15px" }}>
             <div className={`alert ${alert.type}`} style={{ margin: "0 auto" }}>
               <button

@@ -44,8 +44,11 @@ function login({ username, password }, from, history) {
   return dispatch => {
     dispatch(request({ username }));
 
-    authService.login(username, password).then(
+    authService.login({ username, password }).then(
       user => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem("user", JSON.stringify(user));
+
         dispatch(success(user));
         history.push(from);
       },

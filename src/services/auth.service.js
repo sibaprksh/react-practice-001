@@ -8,18 +8,25 @@ export const authService = {
   register
 };
 
-async function login(username, password) {
+async function login({ username, password }) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password })
   };
 
-  return fetch(`${host}/login`, requestOptions)
+  const ignore = encodeURI(
+    `{"password":0, "createdAt":0, "updatedAt":0, "__v":0}`
+  );
+
+  return fetch(
+    `${host}/users?operation=SEARCH&fields=${ignore}`,
+    requestOptions
+  )
     .then(handleResponse)
     .then(user => {
-      // store user details and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem("user", JSON.stringify(user));
+      if (Object.keys(user).length == 0)
+        throw "Username or password is incorrect";
 
       return user;
     });
@@ -37,7 +44,12 @@ async function register(inputs) {
     body: JSON.stringify(inputs)
   };
 
-  return fetch(`/register`, requestOptions).then(handleResponse);
+  const user = await login(inputs);
+  if (!user) {
+    return fetch(`${host}/users`, requestOptions).then(handleResponse);
+  } else {
+    throw `Username  ${user.username} is already taken`;
+  }
 }
 
 function handleResponse(response) {

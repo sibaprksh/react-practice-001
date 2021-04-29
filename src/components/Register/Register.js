@@ -20,7 +20,7 @@ export default function Register() {
   });
 
   const [isSubmitted, setSubmitted] = useState(false);
-  const loading = useSelector(state => state.loading);
+  const loading = useSelector(state => state.auth.registering);
 
   function handleChange(e) {
     const {
@@ -138,9 +138,9 @@ export default function Register() {
               )}
               Sign Up
             </button>
-            <p className="forgot-password text-right">
+            <div className="forgot-password text-right">
               <Link to="/login">Sign in</Link>
-            </p>
+            </div>
           </form>
         </div>
       </div>
