@@ -25,7 +25,7 @@ async function login({ username, password }) {
   )
     .then(handleResponse)
     .then(user => {
-      if (Object.keys(user).length == 0)
+      if (!user || Object.keys(user).length == 0)
         throw "Username or password is incorrect";
 
       return user;
