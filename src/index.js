@@ -29,7 +29,7 @@ ReactDOM.render(
  Login flow: https://jasonwatmore.com/post/2020/03/02/react-hooks-redux-user-registration-and-login-tutorial-example
  
  TODO:
-  1. All static messages move to action
+  1. All static messages move to action - done
   2. Home Page  
 
 */

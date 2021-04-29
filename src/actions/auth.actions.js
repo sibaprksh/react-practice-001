@@ -13,20 +13,31 @@ export const authActions = {
 //const history = useHistory();
 
 function register(inputs, from, history) {
-  return dispatch => {
+  return async dispatch => {
     dispatch(request(inputs));
 
-    authService.register(inputs).then(
-      user => {
-        dispatch(success());
-        dispatch(alertActions.success(authConstants.REGISTER_SUCCESS_MESSAGE));
-        history.push("/login");
-      },
-      error => {
-        dispatch(failure(error.toString()));
-        dispatch(alertActions.error(error.toString()));
+    const { username } = inputs;
+
+    try {
+      const user = await authService.isAvailable({ username });
+      if (!user) {
+        const newUser = await authService.register(inputs);
+        if (newUser) {
+          dispatch(success());
+          dispatch(
+            alertActions.success(authConstants.REGISTER_SUCCESS_MESSAGE)
+          );
+          history.push("/login");
+        } else {
+          throw authConstants.REGISTER_FAILURE_MESSAGE;
+        }
+      } else {
+        throw `Email  ${username} is already taken`;
       }
-    );
+    } catch (error) {
+      dispatch(failure(error.toString()));
+      dispatch(alertActions.error(error.toString()));
+    }
   };
 
   function request(user) {
@@ -41,22 +52,24 @@ function register(inputs, from, history) {
 }
 
 function login({ username, password }, from, history) {
-  return dispatch => {
+  return async dispatch => {
     dispatch(request({ username }));
 
-    authService.login({ username, password }).then(
-      user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem("user", JSON.stringify(user));
-
-        dispatch(success(user));
-        history.push(from);
-      },
-      error => {
-        dispatch(failure(error.toString()));
-        dispatch(alertActions.error(error.toString()));
+    try {
+      const user = await authService.login({ username, password });
+      if (!user || Object.keys(user).length == 0) {
+        throw authConstants.LOGIN_FAILURE_MESSAGE;
       }
-    );
+
+      //store user details and jwt token in local storage to keep user logged in between page refreshes
+      localStorage.setItem("user", JSON.stringify(user));
+
+      dispatch(success(user));
+      history.push(from);
+    } catch (error) {
+      dispatch(failure(error.toString()));
+      dispatch(alertActions.error(error.toString()));
+    }
   };
 
   function request(user) {

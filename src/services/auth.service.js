@@ -5,10 +5,11 @@ const { host } = appConstants;
 export const authService = {
   login,
   logout,
-  register
+  register,
+  isAvailable
 };
 
-async function login({ username, password }) {
+function login({ username, password }) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -22,14 +23,7 @@ async function login({ username, password }) {
   return fetch(
     `${host}/users?operation=SEARCH&fields=${ignore}`,
     requestOptions
-  )
-    .then(handleResponse)
-    .then(user => {
-      if (!user || Object.keys(user).length == 0)
-        throw "Username or password is incorrect";
-
-      return user;
-    });
+  ).then(handleResponse);
 }
 
 function logout() {
@@ -37,19 +31,28 @@ function logout() {
   localStorage.removeItem("user");
 }
 
-async function register(inputs) {
+function register(inputs) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(inputs)
+  };
+  return fetch(`${host}/users`, requestOptions).then(handleResponse);
+}
+
+function isAvailable(inputs) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(inputs)
   };
 
-  const user = await login(inputs);
-  if (!user) {
-    return fetch(`${host}/users`, requestOptions).then(handleResponse);
-  } else {
-    throw `Username  ${user.username} is already taken`;
-  }
+  const ignore = encodeURI(`{"_id":1}`);
+
+  return fetch(
+    `${host}/users?operation=SEARCH&fields=${ignore}`,
+    requestOptions
+  ).then(handleResponse);
 }
 
 function handleResponse(response) {
